@@ -18,4 +18,4 @@ export const initialState: userState = {
 	lastName: "",
 	createdAt: "",
 	updatedAt: "",
-}
+};
