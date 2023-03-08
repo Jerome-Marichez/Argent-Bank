@@ -13,7 +13,7 @@ export default function Hero({ title, subtitle }: { title: Array<string>, subtit
 
 	return (
 		<div className="hero" style={{ backgroundImage: `url(${Background})` }}>
-			<section className="hero-content">
+			<section id="hero" className="hero-content">
 				<h2 className="sr-only">Promoted Content</h2>
 				{title.map((subtitle, key) => <p key={key} className="subtitle">{subtitle}</p>)}
 				<p className="text">{subtitle}</p>

@@ -20,7 +20,7 @@ interface FeatureItem  {
 	    /> 
  * @returns A component who display a Feature Item with his title,subtitle and icon
  */
-export default function FeatureItem({ title, subtitle, icon }: FeatureItem) {
+export default function FeatureItem({ title, subtitle, icon }: FeatureItem): JSX.Element {
 
 	return (
 		<div className="feature-item">

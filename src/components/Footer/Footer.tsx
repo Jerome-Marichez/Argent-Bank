@@ -6,7 +6,7 @@ import "./Footer.scss";
  * @example <Footer/>
  * @return A footer section with copyright at the actual year 
  */
-export default function Footer() {
+export default function Footer(): JSX.Element {
 
 	const year: number = new Date().getFullYear();
 	return (

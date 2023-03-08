@@ -18,15 +18,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route index element={<Home />} />
           <Route path={pathSignIn} element={<SignIn />} />
           <Route path={pathUser} element={<User />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </Provider>
   </React.StrictMode>
 );

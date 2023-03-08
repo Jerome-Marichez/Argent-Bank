@@ -3,14 +3,14 @@ import Hero from '../components/Hero/Hero';
 import FeatureItem from '../components/FeatureItem/FeatureItem';
 
 
-export default function Home() {
+export default function Home(): JSX.Element {
 	return (
 		<main>
 			<Hero
 				title={['No fees.', 'No minimum deposit.', 'High interest rates.']}
 				subtitle={"Open a savings account with Argent Bank today!"}
 			/>
-			<section className="features">
+			<section id="features" className="features">
 				<h2 className="sr-only">Features</h2>
 
 				<FeatureItem

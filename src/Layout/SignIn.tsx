@@ -1,10 +1,13 @@
 import React from "react";
+import AuthForm from "../components/AuthForm/AuthForm";
 
-export default function SignIn() {
+export default function SignIn(): JSX.Element {
 
 	return (
-		<main>
-			<div>dddd</div>
+		<main className="main bg-dark">
+			<section id="sign-in" className="sign-in">
+				<AuthForm />
+			</section>
 		</main>
 	);
 }
