@@ -1,11 +1,10 @@
 import React from 'react';
-import './App.css';
-import type { RootState } from './redux/store';
+import type { rootState } from './redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { disconnect, setToken } from './redux/userSlice';
+import { clearToken, setToken } from './redux/userSlice';
 
 export default function Test() {
-  const count = useSelector((state: RootState) => state.user.token);
+  const count = useSelector((state: rootState) => state.user.token);
   const dispatch = useDispatch();
 
   return (
@@ -20,7 +19,7 @@ export default function Test() {
         <span>{count}</span>
         <button
           aria-label="Test2"
-          onClick={() => dispatch(disconnect())}
+          onClick={() => dispatch(clearToken())}
         >
           Decrement
         </button>
