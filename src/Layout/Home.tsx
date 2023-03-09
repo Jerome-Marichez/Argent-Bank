@@ -2,7 +2,10 @@ import React from "react";
 import Hero from '../components/Hero/Hero';
 import FeatureItem from '../components/FeatureItem/FeatureItem';
 
-
+/**
+ * 
+ * @returns A Layout Home which wrap HTML Elements + Components
+ */
 export default function Home(): JSX.Element {
 	return (
 		<main>

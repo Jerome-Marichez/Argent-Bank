@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './initialStates';
 
 export const userSlice = createSlice({
-	name: 'user',
+	name: 'token',
 	initialState,
 	reducers: {
 		// Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -18,6 +18,8 @@ export const userSlice = createSlice({
 		},
 	},
 });
+
+
 
 // Action creators are generated for each case reducer function
 export const { clearToken, setToken } = userSlice.actions;
