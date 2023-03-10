@@ -1,13 +1,14 @@
 import React from "react";
 import AccTransaction from "../components/AccTransaction/AccTransaction";
 import EditUser from "../components/EditUser/EditUser";
-
+import useUserDetails from "../hooks/useUserDetails";
 /**
  * 
  * @returns A Page User which wrap HTML Elements + Components 
  */
 export default function User(): JSX.Element {
 
+	useUserDetails();
 	return (
 		<main className="main bg-dark">
 

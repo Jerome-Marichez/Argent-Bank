@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 export default function useAuthToken(email: string | undefined, password: string | undefined) {
 
 
-	const apiPath = `${process.env.REACT_APP_API_URL}/login`;
+	const apiPath: string = process.env.REACT_APP_LOGIN_API_URL ?? "http://localhost:3001/api/user/login";
 
 	const [loading, setLoading] = useState(false);
 	const [error, setCode] = useState<number>(0);
@@ -36,10 +36,6 @@ export default function useAuthToken(email: string | undefined, password: string
 			setLoading(true);
 			setCode(0);
 			setToken("");
-
-			setTimeout(() => {
-				
-			},1000);
 
 			try {
 				if (email || password !== undefined) {
