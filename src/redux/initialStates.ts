@@ -1,8 +1,6 @@
 export interface userState {
-	value: number,
 	token: string,
-	id: string,
-	email: string,
+	remember: boolean, 
 	firstName: string,
 	lastName: string,
 	createdAt: string,
@@ -10,10 +8,8 @@ export interface userState {
 }
 
 export const initialState: userState = {
-	value: 0,
 	token: "",
-	id: "",
-	email: "",
+	remember: false,
 	firstName: "",
 	lastName: "",
 	createdAt: "",

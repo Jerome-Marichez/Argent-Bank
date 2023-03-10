@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 import useFetchToken from "../../hooks/useAuthToken";
 import { useSelector, useDispatch } from 'react-redux';
-import { clearToken, setToken } from '../../redux/userSlice';
+import type { rootState } from '../../redux/store';
+import { clearToken, setRemember, setToken } from '../../redux/userSlice';
+
 import AuthMessage from "../AuthMessage/AuthMessage";
 
 import "./AuthForm.scss";
@@ -15,9 +17,6 @@ import "./AuthForm.scss";
  */
 export default function AuthForm(): JSX.Element {
 
-	/**
-	 * 
-	 */
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -27,13 +26,18 @@ export default function AuthForm(): JSX.Element {
 	const [token, loading, code] = useFetchToken(emailInput, passwordInput);
 	const dispatch = useDispatch();
 
+	const remember = useSelector((state: rootState) => state.user.remember);
 	/** Update State Redux */
 	useEffect(() => {
-		if (!token) {
+		if (code !== 200) {
 			dispatch(clearToken());
 		}
 		else {
 			dispatch(setToken(token));
+			setTimeout(() => {
+				window.location.href = './user';
+			}, 500);
+
 		}
 
 	}, [loading]);
@@ -67,8 +71,8 @@ export default function AuthForm(): JSX.Element {
 					<input type="password" id="password" ref={passwordRef} required />
 				</div>
 				<div className="input-remember">
-					<input type="checkbox" id="remember-me" />
-					<label htmlFor="remember-me">Remember me</label>
+					<input type="checkbox" onClick={() => { dispatch(setRemember(remember)); }} checked={remember} id="remember-me" />
+					<label htmlFor="remember-me" >Remember me</label>
 				</div>
 
 

@@ -10,6 +10,9 @@ export const userSlice = createSlice({
 		// which detects changes to a "draft state" and produces a brand new
 		// immutable state based off those changes
 
+		setRemember: (state: any, action: PayloadAction<boolean>) => {
+			state.remember = !action.payload; 
+		},
 		clearToken: (state: any) => {
 			state.token = "";
 		},
@@ -22,6 +25,6 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { clearToken, setToken } = userSlice.actions;
+export const { clearToken, setToken, setRemember } = userSlice.actions;
 
 export default userSlice.reducer;

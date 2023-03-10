@@ -10,7 +10,9 @@ import { useEffect, useState } from "react";
  * 
  * loading = a boolean with state set to True if the request has been completed
  * 
- * code = a number with state set to 200 if no error occurred. Otherwise, error can contain one of the following values:
+ * code = a number with state set with one of the following values:
+ 
+ * - 200 = Sucessful connection (token is grabbed)
  * 
  * - 400 = Invalid Input 
  * 
@@ -37,8 +39,6 @@ export default function useAuthToken(email: string | undefined, password: string
 
 			try {
 				if (email || password !== undefined) {
-
-
 
 					const response: Response = await fetch(apiPath, {
 						headers: {
