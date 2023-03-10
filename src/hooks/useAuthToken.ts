@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
  * 
  * loading = a boolean with state set to True if the request has been completed
  * 
- * error = a number with state set to 0 if no error occurred. Otherwise, error can contain one of the following values:
+ * code = a number with state set to 200 if no error occurred. Otherwise, error can contain one of the following values:
  * 
  * - 400 = Invalid Input 
  * 
@@ -23,7 +23,7 @@ export default function useAuthToken(email: string | undefined, password: string
 	const apiPath = `${process.env.REACT_APP_API_URL}/login`;
 
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<number>(0);
+	const [error, setCode] = useState<number>(0);
 	const [token, setToken] = useState<string>("");
 
 
@@ -32,7 +32,7 @@ export default function useAuthToken(email: string | undefined, password: string
 
 		(async () => {
 			setLoading(true);
-			setError(0);
+			setCode(0);
 			setToken("");
 
 			try {
@@ -56,23 +56,24 @@ export default function useAuthToken(email: string | undefined, password: string
 					switch (responseToken.status) {
 
 						case 200:
+							setCode(200);
 							setToken(responseToken.body.token);
 							break;
 						case 400:
-							setError(400);
+							setCode(400);
 							break;
 						case 500:
-							setError(500);
+							setCode(500);
 							break;
 						default:
-							setError(500);
+							setCode(500);
 					}
 
 
 				}
 			}
 			catch {
-				setError(500);
+				setCode(500);
 			}
 			finally {
 				setLoading(false);

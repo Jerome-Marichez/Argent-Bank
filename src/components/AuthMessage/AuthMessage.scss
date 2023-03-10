@@ -1,0 +1,26 @@
+.message-ok,
+.message-error {
+	opacity: 1;
+	animation: showIt 2s normal;
+
+}
+
+@keyframes showIt {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+
+}
+
+.message-ok {
+	color: green;
+}
+
+.message-error {
+	color: red;
+}
