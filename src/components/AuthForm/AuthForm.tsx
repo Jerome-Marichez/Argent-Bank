@@ -27,10 +27,16 @@ export default function AuthForm(): JSX.Element {
 	const dispatch = useDispatch();
 
 	const remember = useSelector((state: rootState) => state.user.remember);
+
+
 	/** Update State Redux */
 	useEffect(() => {
+		if (!code) { return; }
+
 		if (code !== 200) {
 			dispatch(clearToken());
+			dispatch(setRemember(false));
+
 		}
 		else {
 			dispatch(setToken(token));
@@ -71,7 +77,7 @@ export default function AuthForm(): JSX.Element {
 					<input type="password" id="password" ref={passwordRef} required />
 				</div>
 				<div className="input-remember">
-					<input type="checkbox" onClick={() => { dispatch(setRemember(remember)); }} checked={remember} id="remember-me" />
+					<input type="checkbox" onClick={() => { dispatch(setRemember(!remember)); }} defaultChecked={remember} id="remember-me" />
 					<label htmlFor="remember-me" >Remember me</label>
 				</div>
 

@@ -11,7 +11,7 @@ export const userSlice = createSlice({
 		// immutable state based off those changes
 
 		setRemember: (state: any, action: PayloadAction<boolean>) => {
-			state.remember = !action.payload; 
+			state.remember = action.payload; 
 		},
 		clearToken: (state: any) => {
 			state.token = "";
