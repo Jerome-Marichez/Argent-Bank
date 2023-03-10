@@ -4,7 +4,7 @@ import EditUser from "../components/EditUser/EditUser";
 
 /**
  * 
- * @returns A Layout User which wrap HTML Elements + Components
+ * @returns A Page User which wrap HTML Elements + Components 
  */
 export default function User(): JSX.Element {
 

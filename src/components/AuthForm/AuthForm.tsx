@@ -2,11 +2,11 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import useFetchToken from "../../hooks/useAuthToken";
+import useAuthToken from "../../hooks/useAuthToken";
 import { useSelector, useDispatch } from 'react-redux';
 import type { rootState } from '../../redux/store';
 import { clearToken, setRemember, setToken } from '../../redux/userSlice';
-
+import { pathUser } from '../../utils/routesNames';
 import AuthMessage from "../AuthMessage/AuthMessage";
 
 import "./AuthForm.scss";
@@ -23,7 +23,7 @@ export default function AuthForm(): JSX.Element {
 	const [emailInput, setEmailInput] = useState<string>();
 	const [passwordInput, setPasswordInput] = useState<string>();
 
-	const [token, loading, code] = useFetchToken(emailInput, passwordInput);
+	const [token, loading, code] = useAuthToken(emailInput, passwordInput);
 	const dispatch = useDispatch();
 
 	const remember = useSelector((state: rootState) => state.user.remember);
@@ -36,12 +36,12 @@ export default function AuthForm(): JSX.Element {
 		if (code !== 200) {
 			dispatch(clearToken());
 			dispatch(setRemember(false));
-
 		}
 		else {
 			dispatch(setToken(token));
+
 			setTimeout(() => {
-				window.location.href = './user';
+				window.location.href = pathUser;
 			}, 500);
 
 		}
@@ -82,9 +82,9 @@ export default function AuthForm(): JSX.Element {
 				</div>
 
 
-				<button className="auth-form-button">Sign In</button>
+				<button className={'auth-form-button'} disabled={loading ? true : false}>Sign In</button>
 
 			</form>
-		</div>
+		</div >
 	);
 }

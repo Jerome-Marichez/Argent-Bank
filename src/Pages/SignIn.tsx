@@ -3,7 +3,7 @@ import AuthForm from "../components/AuthForm/AuthForm";
 
 /**
  * 
- * @returns A Layout SignIn which wrap HTML Elements + Components
+ * @returns A Page SignIn which wrap HTML Elements + Components
  */
 export default function SignIn(): JSX.Element {
 

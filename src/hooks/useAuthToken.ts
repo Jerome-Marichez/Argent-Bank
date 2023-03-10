@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  * 
  * token = an empty string or a JWT token if authentication is successful
  * 
- * loading = a boolean with state set to True if the request has been completed
+ * loading = a boolean with state set to false if the request has been completed
  * 
  * code = a number with state set with one of the following values:
  
@@ -24,7 +24,7 @@ export default function useAuthToken(email: string | undefined, password: string
 
 	const apiPath = `${process.env.REACT_APP_API_URL}/login`;
 
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [error, setCode] = useState<number>(0);
 	const [token, setToken] = useState<string>("");
 
@@ -36,6 +36,10 @@ export default function useAuthToken(email: string | undefined, password: string
 			setLoading(true);
 			setCode(0);
 			setToken("");
+
+			setTimeout(() => {
+				
+			},1000);
 
 			try {
 				if (email || password !== undefined) {

@@ -4,7 +4,7 @@ import FeatureItem from '../components/FeatureItem/FeatureItem';
 
 /**
  * 
- * @returns A Layout Home which wrap HTML Elements + Components
+ * @returns A Page Home which wrap HTML Elements + Components
  */
 export default function Home(): JSX.Element {
 	return (
