@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import "./globalStyles.scss";
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Home from './Pages/Home';
-import SignIn from './Pages/SignIn';
-import User from './Pages/User';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { pathSignIn, pathHome, pathUser } from './utils/routesNames';
 

@@ -37,9 +37,9 @@ export default function AuthForm(): JSX.Element {
 			dispatch(clearToken());
 			dispatch(setRemember(false));
 		}
+		
 		else {
 			dispatch(setToken(token));
-
 			setTimeout(() => {
 				window.location.href = pathUser;
 			}, 500);
