@@ -23,15 +23,15 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-
         <Header />
         <Routes>
           <Route index element={<Home />} />
           <Route path={pathSignIn} element={<SignIn />} />
           <Route path={pathUser} element={
-          <ProtectedRoute>
-            <User />
-          </ProtectedRoute>} />
+            <ProtectedRoute>
+              <User />
+            </ProtectedRoute>
+          } />
         </Routes>
         <Footer />
       </BrowserRouter>
