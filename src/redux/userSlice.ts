@@ -14,11 +14,11 @@ export const userSlice = createSlice({
 		updateUser: (state: any, action: PayloadAction<any>) => {
 			const userObject: userState = action.payload;
 			
-			state.email = userObject.email;
-			state.firstName = userObject.firstName;
-			state.lastName = userObject.lastName;
-			state.createdAt = userObject.createdAt;
-			state.updatedAt = userObject.updatedAt;
+			state.email = userObject.email ?? state.email;
+			state.firstName = userObject.firstName ?? state.firstName;
+			state.lastName = userObject.lastName ?? state.lastName;
+			state.createdAt = userObject.createdAt ?? state.createdAt;
+			state.updatedAt = userObject.updatedAt ?? state.updatedAt;
 		},
 
 		setRemember: (state: any, action: PayloadAction<boolean>) => {
@@ -27,6 +27,7 @@ export const userSlice = createSlice({
 		clearToken: (state: any) => {
 			state.token = "";
 		},
+		
 		setToken: (state: any, action: PayloadAction<string>) => {
 			state.token += action.payload;
 		},
