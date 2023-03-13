@@ -6,7 +6,7 @@ import { clearToken, updateUser } from '../redux/userSlice';
 import type { rootState } from '../redux/store';
 
 /**
- * @returns A hook who read from redux the JWT Token and try update user profile in redux store though POST API if valid
+ * @returns A hook who read from redux the JWT Token and try update user profile in redux store though POST API if valid, otherwise reset JWT Token
  * 
  * Return two State [loading, valid]:
  * 
