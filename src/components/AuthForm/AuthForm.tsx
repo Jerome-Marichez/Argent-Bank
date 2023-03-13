@@ -1,10 +1,10 @@
 
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
 import type { rootState } from '../../redux/store';
-import { clearToken, setRemember, setToken } from '../../redux/userSlice';
+import { setRemember, setToken } from '../../redux/userSlice';
 
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ export default function AuthForm(): JSX.Element {
 
 	const [email, setEmail] = useState<string>();
 	const [password, setPassword] = useState<string>();
-	const [codeRequest, setCode] = useState<number>(0);
+	const [codeHTTP, setCodeHTTP] = useState<number>(0);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -49,13 +49,13 @@ export default function AuthForm(): JSX.Element {
 			});
 			const responseToken: any = await response.json();
 			if (responseToken.status !== 200) {
-				setCode(responseToken.status);
+				setCodeHTTP(responseToken.status);
 			}
 			dispatch(setToken(responseToken.body.token));
 			navigate(`/${pathUser}`);
 		}
 		catch {
-			setCode(500);
+			setCodeHTTP(500);
 		}
 	};
 	/** End Handle Submit */
@@ -65,7 +65,7 @@ export default function AuthForm(): JSX.Element {
 
 			<i className="fa fa-user-circle auth-form-icon"></i>
 			<h1>Sign In</h1>
-			<AuthMessage codeStatus={codeRequest} />
+			<AuthMessage codeStatus={codeHTTP} />
 			<form onSubmit={handleSubmit}>
 				<div className="input-wrapper">
 					<label htmlFor="email">Email</label>

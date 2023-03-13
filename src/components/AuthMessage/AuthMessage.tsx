@@ -3,7 +3,7 @@ import React from "react";
 import "./AuthMessage.scss";
 
 /**
- * @param codeError Status code received from a fetch request (e.g., 400, 200, 500)
+ * @param codeStatus Status code received from a fetch request (e.g., 400, 200, 500)
  * @example <AuthMessage codeError={400}/>
  * @returns Displays a message depending of the status code
  */
