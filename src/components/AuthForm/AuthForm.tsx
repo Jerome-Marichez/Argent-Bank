@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { rootState } from '../../redux/store';
 import { clearToken, setRemember, setToken } from '../../redux/userSlice';
 
+import { useNavigate } from "react-router-dom";
+
 import { pathUser } from '../../utils/routesNames';
 import AuthMessage from "../AuthMessage/AuthMessage";
 
@@ -26,9 +28,10 @@ export default function AuthForm(): JSX.Element {
 
 	const [token, loading, code] = useAuthToken(emailInput, passwordInput);
 	const dispatch = useDispatch();
-
+	
 	const remember = useSelector((state: rootState) => state.user.remember);
 
+	const navigate = useNavigate();
 
 	/** Update State Redux */
 	useEffect(() => {
@@ -41,10 +44,7 @@ export default function AuthForm(): JSX.Element {
 		
 		else {
 			dispatch(setToken(token));
-			setTimeout(() => {
-				window.location.href = pathUser;
-			}, 500);
-
+			navigate(`/${pathUser}`);
 		}
 
 	}, [loading]);
