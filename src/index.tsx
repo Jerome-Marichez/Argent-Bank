@@ -12,7 +12,7 @@ import User from './pages/User';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { pathSignIn, pathHome, pathUser } from './utils/routesNames';
-
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -23,12 +23,15 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-    
+
         <Header />
         <Routes>
           <Route index element={<Home />} />
           <Route path={pathSignIn} element={<SignIn />} />
-          <Route path={pathUser} element={<User />} />
+          <Route path={pathUser} element={
+          <ProtectedRoute>
+            <User />
+          </ProtectedRoute>} />
         </Routes>
         <Footer />
       </BrowserRouter>

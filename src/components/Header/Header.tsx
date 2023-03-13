@@ -7,14 +7,13 @@ import { Link, useLocation } from "react-router-dom";
 import type { rootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearToken } from '../../redux/userSlice';
-import useUserProfile from "../../hooks/useUserProfile";
+
 /**
  * 
  * @returns A component who display a Header
  */
 export default function Header(): JSX.Element {	
 	
-	useUserProfile(); 
 	
 	const myLocation: string = useLocation().pathname;
 	const fullName: string = useSelector((state: rootState) => state.user.firstName + " " + state.user.lastName);
@@ -22,12 +21,11 @@ export default function Header(): JSX.Element {
 	const isUserPage: boolean = (myLocation === `/${pathUser}`);
 
 	const dispatch = useDispatch();
+	
 	const logOut = () => {
-		dispatch(clearToken());
-		setTimeout(() => {
-			window.location.href = pathSignIn;
-		}, 500);
+		dispatch(clearToken());	
 	};
+
 	return (
 		<header>
 			<nav className="main-nav">
@@ -47,7 +45,7 @@ export default function Header(): JSX.Element {
 							<Link className="main-nav-item" to={pathUser}>
 								<i className="fa fa-user-circle"></i> {fullName}
 							</Link>
-							<Link onClick={logOut} className="main-nav-item" to={pathHome}>
+							<Link onClick={logOut} className="main-nav-item" to={pathSignIn}>
 								<i className="fa fa-sign-out"></i> Logout
 							</Link>
 						</>

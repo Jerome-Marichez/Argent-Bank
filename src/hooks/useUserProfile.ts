@@ -8,7 +8,7 @@ import type { rootState } from '../redux/store';
 /**
  * @returns A hook who read from redux the JWT Token and try update user profile in redux store though POST API if valid
  * 
- * Return two State 
+ * Return two State [loading, valid]:
  * 
  * - loading = a boolean with state set to false if the request fetch has been completed
  * - valid = a boolean with state set to true if JWT Token is valid and update user profile worked.
@@ -63,5 +63,5 @@ export default function useUserProfile() {
 	}, []);
 
 
-	return [valid, loading] as const;
+	return [loading, valid] as const;
 }
