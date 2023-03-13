@@ -2,7 +2,6 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import useAuthToken from "../../hooks/useAuthToken";
 import { useSelector, useDispatch } from 'react-redux';
 import type { rootState } from '../../redux/store';
 import { clearToken, setRemember, setToken } from '../../redux/userSlice';
@@ -20,71 +19,68 @@ import "./AuthForm.scss";
  */
 export default function AuthForm(): JSX.Element {
 
-	const emailRef = useRef<HTMLInputElement>(null);
-	const passwordRef = useRef<HTMLInputElement>(null);
 
-	const [emailInput, setEmailInput] = useState<string>();
-	const [passwordInput, setPasswordInput] = useState<string>();
+	const [email, setEmail] = useState<string>();
+	const [password, setPassword] = useState<string>();
+	const [codeRequest, setCode] = useState<number>(0);
 
-	const [token, loading, code] = useAuthToken(emailInput, passwordInput);
 	const dispatch = useDispatch();
-	
+	const navigate = useNavigate();
 	const remember = useSelector((state: rootState) => state.user.remember);
 
-	const navigate = useNavigate();
 
-	/** Update State Redux */
-	useEffect(() => {
-		if (!code) { return; }
 
-		if (code !== 200) {
-			dispatch(clearToken());
-			dispatch(setRemember(false));
-		}
-		
-		else {
-			dispatch(setToken(token));
+	/** Handle Submit  */
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
+		try {
+			const apiPath: string = process.env.REACT_APP_LOGIN_API_URL ?? "http://localhost:3001/api/user/login";
+			const response: Response = await fetch(apiPath, {
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				method: "POST",
+				body: JSON.stringify({
+					"email": email,
+					"password": password
+				})
+
+			});
+			const responseToken: any = await response.json();
+			if (responseToken.status !== 200) {
+				setCode(responseToken.status);
+			}
+			dispatch(setToken(responseToken.body.token));
 			navigate(`/${pathUser}`);
 		}
-
-	}, [loading]);
-	/** END Update State Redux */
-
-	/** Handle FORM  */
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-		const emailHandle = emailRef?.current?.value ?? undefined;
-		const passwordHandle = passwordRef?.current?.value ?? undefined;
-		if ((emailHandle && passwordHandle) !== undefined) {
-			setEmailInput(emailHandle);
-			setPasswordInput(passwordHandle);
+		catch {
+			setCode(500);
 		}
 	};
-	/** END Update FORM */
+	/** End Handle Submit */
 
 	return (
 		<div className="auth-form-content">
 
 			<i className="fa fa-user-circle auth-form-icon"></i>
 			<h1>Sign In</h1>
-			<AuthMessage codeStatus={code} />
+			<AuthMessage codeStatus={codeRequest} />
 			<form onSubmit={handleSubmit}>
 				<div className="input-wrapper">
 					<label htmlFor="email">Email</label>
-					<input type="text" id="email" ref={emailRef} required />
+					<input type="text" id="email" onChange={e => setEmail(e.target.value)} required />
 				</div>
 				<div className="input-wrapper">
 					<label htmlFor="password">Password</label>
-					<input type="password" id="password" ref={passwordRef} required />
+					<input type="password" id="password" onChange={e => setPassword(e.target.value)} required />
 				</div>
 				<div className="input-remember">
 					<input type="checkbox" onClick={() => { dispatch(setRemember(!remember)); }} defaultChecked={remember} id="remember-me" />
 					<label htmlFor="remember-me" >Remember me</label>
 				</div>
 
-
-				<button className={'auth-form-button'} disabled={loading ? true : false}>Sign In</button>
-
+				<button className={'auth-form-button'}>Sign In</button>
 			</form>
 		</div >
 	);
