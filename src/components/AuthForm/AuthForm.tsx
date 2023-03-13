@@ -18,17 +18,15 @@ import "./AuthForm.scss";
  * @returns A component who display a Auth Form
  */
 export default function AuthForm(): JSX.Element {
-
-
+	
 	const [email, setEmail] = useState<string>();
 	const [password, setPassword] = useState<string>();
 	const [codeHTTP, setCodeHTTP] = useState<number>(0);
+	const remember = useSelector((state: rootState) => state.user.remember);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const remember = useSelector((state: rootState) => state.user.remember);
-
-
+	
 
 	/** Handle Submit  */
 	const handleSubmit = async (e: any) => {
