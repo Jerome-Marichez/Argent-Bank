@@ -2,7 +2,7 @@ import React from "react";
 import "./FeatureItem.scss";
 
 
-interface FeatureItem  {
+interface FeatureItemProps  {
 	title: string
 	subtitle: string
 	icon: 'chat' | 'money' | 'security'
@@ -20,7 +20,7 @@ interface FeatureItem  {
 	    /> 
  * @returns A component who display a Feature Item with his title,subtitle and icon
  */
-export default function FeatureItem({ title, subtitle, icon }: FeatureItem): JSX.Element {
+export default function FeatureItem({ title, subtitle, icon }: FeatureItemProps): JSX.Element {
 
 	return (
 		<div className="feature-item">
