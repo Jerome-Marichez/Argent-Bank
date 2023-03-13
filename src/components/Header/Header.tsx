@@ -1,14 +1,33 @@
 import React from "react";
 import "./Header.scss";
 import Logo from "./argentBankLogo.png";
-import { pathHome, pathSignIn } from '../../utils/routesNames';
-import { Link } from "react-router-dom";
+import { pathHome, pathSignIn, pathUser } from '../../utils/routesNames';
+import { Link, useLocation } from "react-router-dom";
+
+import type { rootState } from '../../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearToken } from '../../redux/userSlice';
+import useUserProfile from "../../hooks/useUserProfile";
 /**
  * 
- * @returns A component who display a Header with Logo + SignIn
+ * @returns A component who display a Header
  */
-export default function Header(): JSX.Element {
+export default function Header(): JSX.Element {	
+	
+	useUserProfile(); 
+	
+	const myLocation: string = useLocation().pathname;
+	const fullName: string = useSelector((state: rootState) => state.user.firstName + " " + state.user.lastName);
+	const token: string = useSelector((state: rootState) => state.user.token);
+	const isUserPage: boolean = (myLocation === `/${pathUser}`);
 
+	const dispatch = useDispatch();
+	const logOut = () => {
+		dispatch(clearToken());
+		setTimeout(() => {
+			window.location.href = pathSignIn;
+		}, 500);
+	};
 	return (
 		<header>
 			<nav className="main-nav">
@@ -22,9 +41,21 @@ export default function Header(): JSX.Element {
 				</Link>
 
 				<div>
-					<Link className="main-nav-item" to={pathSignIn}>
-						<i className="fa fa-user-circle"></i> Sign In
-					</Link>
+
+					{isUserPage && token ?
+						<>
+							<Link className="main-nav-item" to={pathUser}>
+								<i className="fa fa-user-circle"></i> {fullName}
+							</Link>
+							<Link onClick={logOut} className="main-nav-item" to={pathHome}>
+								<i className="fa fa-sign-out"></i> Logout
+							</Link>
+						</>
+						:
+						<Link className="main-nav-item" to={pathSignIn}>
+							<i className="fa fa-user-circle"></i> Sign In
+						</Link>
+					}
 				</div>
 			</nav>
 		</header>

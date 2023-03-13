@@ -9,16 +9,21 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { pathSignIn, pathHome, pathUser } from './utils/routesNames';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
 root.render(
+
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+    
         <Header />
         <Routes>
           <Route index element={<Home />} />

@@ -1,17 +1,15 @@
 import React from "react";
 import AccTransaction from "../components/AccTransaction/AccTransaction";
 import EditUser from "../components/EditUser/EditUser";
-import useUserDetails from "../hooks/useUserDetails";
+
 /**
  * 
  * @returns A Page User which wrap HTML Elements + Components 
  */
 export default function User(): JSX.Element {
 
-	useUserDetails();
 	return (
 		<main className="main bg-dark">
-
 			<h2 className="sr-only">Accounts</h2>
 			<EditUser fullname={"Tony Jarvis!"} />
 			<AccTransaction title={"Argent Bank Checking (x8349)"} amount={"2,082.79"} />

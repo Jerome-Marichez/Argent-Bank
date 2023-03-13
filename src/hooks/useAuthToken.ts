@@ -24,10 +24,9 @@ export default function useAuthToken(email: string | undefined, password: string
 
 	const apiPath: string = process.env.REACT_APP_LOGIN_API_URL ?? "http://localhost:3001/api/user/login";
 
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [error, setCode] = useState<number>(0);
 	const [token, setToken] = useState<string>("");
-
 
 
 	useEffect(() => {
