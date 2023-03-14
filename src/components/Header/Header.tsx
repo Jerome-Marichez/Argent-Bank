@@ -20,10 +20,6 @@ export default function Header(): JSX.Element {
 
 	const dispatch = useDispatch();
 
-	const logOut = () => {
-		dispatch(logout());
-	};
-
 	return (
 		<header>
 			<nav className="main-nav">
@@ -43,7 +39,7 @@ export default function Header(): JSX.Element {
 							<Link className="main-nav-item" to={pathUser}>
 								<i className="fa fa-user-circle"></i> {fullName}
 							</Link>
-							<Link onClick={logOut} className="main-nav-item" to={pathSignIn}>
+							<Link onClick={() => dispatch(logout())} className="main-nav-item" to={pathSignIn}>
 								<i className="fa fa-sign-out"></i> Logout
 							</Link>
 						</>

@@ -17,35 +17,30 @@ export default function User(): JSX.Element {
 	const apiPath: string = process.env.REACT_APP_PROFILE_POST_API_URL ?? "http://localhost:3001/v1/api/user/profile";
 
 
-	const fetchUser = async (): Promise<object | false> => {
+	const fetchUser = async () => {
 		try {
 			const response: Response = await fetch(apiPath, {
 				headers: {
 					'Accept': 'application/json',
+					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${token}`,
 				},
 				method: "POST",
 			});
 
 			const responseUser: { status: number, body: object } = await response.json();
-			if (responseUser.status !== 200 && !responseUser.body) { return false; }
-
-			const userObject: object = responseUser.body;
-			return userObject;
+			if (responseUser.status !== 200 && !responseUser.body) { dispatch(logout()); }
+			dispatch(updateUser(responseUser.body));
 		}
+		
 		catch {
-			return false;
+			dispatch(logout());
 		}
 	};
 
-	fetchUser().then((userObject: false | object) => {
-		console.log("fetch"); 
-		if (userObject === false) { dispatch(logout()); }
-		dispatch(updateUser(userObject));
-	});
-	fetchUser().catch(() => { dispatch(logout()); });
+	fetchUser(); 
 
-
+	
 	return (
 		<main className="main bg-dark">
 			<h2 className="sr-only">Accounts</h2>

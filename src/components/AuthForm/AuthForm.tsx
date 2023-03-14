@@ -47,7 +47,7 @@ export default function AuthForm(): JSX.Element {
 			});
 			const responseToken: any = await response.json();
 
-			if (responseToken.status == 200) {
+			if (responseToken.status === 200) {
 				dispatch(setToken(responseToken.body.token));
 				navigate(`/${pathUser}`);
 			} else {
@@ -55,7 +55,7 @@ export default function AuthForm(): JSX.Element {
 			}
 		}
 		catch {
-			setCodeHTTP(500);
+			setCodeHTTP(404);
 		}
 	};
 	/** End Handle Submit */
@@ -69,7 +69,7 @@ export default function AuthForm(): JSX.Element {
 			<form onSubmit={handleSubmit}>
 				<div className="input-wrapper">
 					<label htmlFor="email">Email</label>
-					<input type="text" id="email"
+					<input type="email" id="email"
 						autoComplete={remember ? 'username' : 'off'}
 						onChange={e => setEmail(e.target.value)}
 						required

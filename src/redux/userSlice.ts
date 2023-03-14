@@ -16,6 +16,7 @@ export const userSlice = createSlice({
 		updateUser: (state: userState, action: PayloadAction<any>) => {
 			const userObject: userState = action.payload;
 
+			
 			state.email = userObject.email ?? state.email;
 			state.firstName = userObject.firstName ?? state.firstName;
 			state.lastName = userObject.lastName ?? state.lastName;
