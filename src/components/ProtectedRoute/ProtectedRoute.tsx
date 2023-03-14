@@ -1,32 +1,16 @@
 
 import React from "react";
-import useUserProfile from "../../hooks/useUserProfile";
-import "./ProtectedRoute.scss"; 
-import { Link } from "react-router-dom";
-import { pathHome } from "../../utils/routesNames";
+import { useSelector } from "react-redux";
+import { rootState } from "../../redux/store";
 
-export default function ProtectedRoute({ children }: { children: any }) {
+import { useNavigate } from "react-router-dom";
+import { pathSignIn } from "../../utils/routesNames";
 
-	const [loading, valid] = useUserProfile();
+export default function ProtectedRoute({ children }: { children: JSX.Element }): JSX.Element {
+	const navigate = useNavigate();
+	const token: string = useSelector((state: rootState) => state.user.token);
 
-	if (loading) {
-		/** replace ... by a splash loading */
-		return "...";
-	}
+	if (!token) navigate(`/${pathSignIn}`);
 
-	if (!loading && valid) { return children; }
-	
-	if (!loading && !valid) {
-		return (
-			<>
-				<div className="protected-route-error">
-					<h2>Error something goes wrong</h2>
-					<Link className="main-nav-item" to={`/${pathHome}`}>
-						Back to Home
-					</Link>
-				</div>
-
-			</>
-		);
-	}
+	return children;
 };

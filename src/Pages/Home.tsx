@@ -7,6 +7,7 @@ import FeatureItem from '../components/FeatureItem/FeatureItem';
  * @returns A Page Home which wrap HTML Elements + Components
  */
 export default function Home(): JSX.Element {
+	
 	return (
 		<main>
 			<Hero

@@ -1,6 +1,6 @@
 import React from "react";
 import "./EditUser.scss";
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/userSlice';
 import type { rootState } from '../../redux/store';
@@ -9,13 +9,15 @@ import type { rootState } from '../../redux/store';
  * @returns A component who display fullName of our user and allow edit his itself
  */
 export default function EditUser(): JSX.Element {
+
 	const fullName: string = useSelector((state: rootState) => state.user.firstName + " " + state.user.lastName);
-	const inputNameRef = useRef<HTMLInputElement>(null);
+	const [inputName, setInputName] = useState("");
+	
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		const [firstName, lastName] = inputNameRef?.current?.value.split(" ") || "";
+		const [firstName, lastName] = inputName.split(" ") || "";
 
 		if (firstName.length || lastName.length < 4) {
 			// do the fetch Try catch finally
@@ -24,8 +26,7 @@ export default function EditUser(): JSX.Element {
 		}
 
 	};
-
-
+	
 	return (
 		<div className="edit-user">
 			<h1>Welcome back<br />{fullName}</h1>
@@ -33,7 +34,7 @@ export default function EditUser(): JSX.Element {
 			<form onSubmit={handleSubmit}>
 				<input name="input-name"
 					placeholder={fullName}
-					ref={inputNameRef}
+					onChange={(e) => {setInputName(e.target.value);}}
 					required
 					minLength={4}>
 				</input>
@@ -41,4 +42,5 @@ export default function EditUser(): JSX.Element {
 			</form>
 		</div>
 	);
+
 }

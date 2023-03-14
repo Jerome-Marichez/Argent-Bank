@@ -6,24 +6,22 @@ import { Link, useLocation } from "react-router-dom";
 
 import type { rootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearToken } from '../../redux/userSlice';
+import { logout } from '../../redux/userSlice';
 
 /**
  * 
  * @returns A component who display a Header
  */
-export default function Header(): JSX.Element {	
-	
-	
+export default function Header(): JSX.Element {
+
 	const myLocation: string = useLocation().pathname;
 	const fullName: string = useSelector((state: rootState) => state.user.firstName + " " + state.user.lastName);
-	const token: string = useSelector((state: rootState) => state.user.token);
 	const isUserPage: boolean = (myLocation === `/${pathUser}`);
 
 	const dispatch = useDispatch();
-	
+
 	const logOut = () => {
-		dispatch(clearToken());	
+		dispatch(logout());
 	};
 
 	return (
@@ -40,7 +38,7 @@ export default function Header(): JSX.Element {
 
 				<div>
 
-					{isUserPage && token ?
+					{isUserPage ?
 						<>
 							<Link className="main-nav-item" to={pathUser}>
 								<i className="fa fa-user-circle"></i> {fullName}
@@ -58,4 +56,5 @@ export default function Header(): JSX.Element {
 			</nav>
 		</header>
 	);
+	
 }

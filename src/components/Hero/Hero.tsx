@@ -20,4 +20,5 @@ export default function Hero({ title, subtitle }: { title: Array<string>, subtit
 			</section>
 		</div>
 	);
+	
 }

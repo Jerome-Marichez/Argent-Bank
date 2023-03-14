@@ -11,24 +11,28 @@ export const userSlice = createSlice({
 		// which detects changes to a "draft state" and produces a brand new
 		// immutable state based off those changes
 
-		updateUser: (state: any, action: PayloadAction<any>) => {
+
+		// When calling the updateUser, we pass an object containing the updated properties that we want to apply.
+		updateUser: (state: userState, action: PayloadAction<any>) => {
 			const userObject: userState = action.payload;
-			
+
 			state.email = userObject.email ?? state.email;
 			state.firstName = userObject.firstName ?? state.firstName;
 			state.lastName = userObject.lastName ?? state.lastName;
-			state.createdAt = userObject.createdAt ?? state.createdAt;
-			state.updatedAt = userObject.updatedAt ?? state.updatedAt;
 		},
 
-		setRemember: (state: any, action: PayloadAction<boolean>) => {
+		// Clear all states expect Email & Remember
+		logout: (state: any) => {
+			state.token = ""; 
+			state.firstName = ""; 
+			state.lastName = "";
+		},
+
+		setRemember: (state: userState, action: PayloadAction<boolean>) => {
 			state.remember = action.payload;
 		},
-		clearToken: (state: any) => {
-			state.token = "";
-		},
-		
-		setToken: (state: any, action: PayloadAction<string>) => {
+
+		setToken: (state: userState, action: PayloadAction<string>) => {
 			state.token += action.payload;
 		},
 	},
@@ -37,6 +41,6 @@ export const userSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { clearToken, setToken, setRemember, updateUser } = userSlice.actions;
+export const { logout, setToken, setRemember, updateUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -20,8 +20,6 @@ export default function AuthMessage({ codeStatus }: { codeStatus: number }): JSX
 
 		case 400:
 			return (
-
-
 				<div className="message-error">
 					<p>Error {codeStatus} invalid inputs </p>
 				</div>
@@ -29,8 +27,6 @@ export default function AuthMessage({ codeStatus }: { codeStatus: number }): JSX
 
 		case 500:
 			return (
-
-
 				<div className="message-error">
 					<p>Error {codeStatus} Internal Server Error</p>
 				</div>

@@ -18,7 +18,7 @@ import "./AuthForm.scss";
  * @returns A component who display a Auth Form
  */
 export default function AuthForm(): JSX.Element {
-	
+
 	const [email, setEmail] = useState<string>();
 	const [password, setPassword] = useState<string>();
 	const [codeHTTP, setCodeHTTP] = useState<number>(0);
@@ -26,7 +26,7 @@ export default function AuthForm(): JSX.Element {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	
+
 
 	/** Handle Submit  */
 	const handleSubmit = async (e: any) => {
@@ -46,11 +46,13 @@ export default function AuthForm(): JSX.Element {
 
 			});
 			const responseToken: any = await response.json();
-			if (responseToken.status !== 200) {
+
+			if (responseToken.status == 200) {
+				dispatch(setToken(responseToken.body.token));
+				navigate(`/${pathUser}`);
+			} else {
 				setCodeHTTP(responseToken.status);
 			}
-			dispatch(setToken(responseToken.body.token));
-			navigate(`/${pathUser}`);
 		}
 		catch {
 			setCodeHTTP(500);
@@ -67,14 +69,22 @@ export default function AuthForm(): JSX.Element {
 			<form onSubmit={handleSubmit}>
 				<div className="input-wrapper">
 					<label htmlFor="email">Email</label>
-					<input type="text" id="email" onChange={e => setEmail(e.target.value)} required />
+					<input type="text" id="email"
+						autoComplete={remember ? 'username' : 'off'}
+						onChange={e => setEmail(e.target.value)}
+						required
+					/>
 				</div>
 				<div className="input-wrapper">
 					<label htmlFor="password">Password</label>
-					<input type="password" id="password" onChange={e => setPassword(e.target.value)} required />
+					<input type="password" id="password"
+						autoComplete={remember ? 'password' : 'new-password'}
+						onChange={e => setPassword(e.target.value)}
+						required
+					/>
 				</div>
 				<div className="input-remember">
-					<input type="checkbox" onClick={() => { dispatch(setRemember(!remember)); }} defaultChecked={remember} id="remember-me" />
+					<input type="checkbox" onChange={() => { dispatch(setRemember(!remember)); }} defaultChecked={remember} id="remember-me" />
 					<label htmlFor="remember-me" >Remember me</label>
 				</div>
 
@@ -82,4 +92,5 @@ export default function AuthForm(): JSX.Element {
 			</form>
 		</div >
 	);
+
 }

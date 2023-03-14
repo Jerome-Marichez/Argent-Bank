@@ -21,4 +21,5 @@ export default function AccTransaction({ title, amount }: { title: string, amoun
 			</div>
 		</section>
 	);
+	
 }

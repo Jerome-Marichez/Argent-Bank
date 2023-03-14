@@ -4,8 +4,6 @@ export interface userState {
 	remember: boolean, 
 	firstName: string,
 	lastName: string,
-	createdAt: string,
-	updatedAt: string,
 }
 
 export const initialState: userState = {
@@ -14,6 +12,4 @@ export const initialState: userState = {
 	remember: false,
 	firstName: "",
 	lastName: "",
-	createdAt: "",
-	updatedAt: "",
 };

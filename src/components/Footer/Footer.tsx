@@ -14,4 +14,5 @@ export default function Footer(): JSX.Element {
 			<p className="footer-text">Copyright {year} Argent Bank</p>
 		</footer>
 	);
+	
 }
