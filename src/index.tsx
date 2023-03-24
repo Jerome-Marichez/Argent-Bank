@@ -32,6 +32,7 @@ root.render(
               <User />
             </ProtectedRoute>
           } />
+          
         </Routes>
         <Footer />
       </BrowserRouter>

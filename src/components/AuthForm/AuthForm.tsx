@@ -39,8 +39,8 @@ export default function AuthForm(): JSX.Element {
 		} else {
 			dispatch(setToken(answer));	
 			navigate(`/${pathUser}`);
-
 		}
+		
 	};
 	/** End Handle Submit */
 

@@ -36,7 +36,7 @@ export default function User(): JSX.Element {
 
 
 	return (
-		<main className="main bg-dark">
+		<main className="bg-dark">
 			<h2 className="sr-only">Accounts</h2>
 			<EditUser />
 			<AccTransaction title={"Argent Bank Checking (x8349)"} amount={"2,082.79"} />
