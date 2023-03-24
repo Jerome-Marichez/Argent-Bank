@@ -5,13 +5,27 @@
 	.edit-button,
 	input {
 		padding: 10px;
+		margin: 5px;
+		margin-left: 10px;
 	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+
+		.group-element {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+	}
+
 
 	.edit-button {
 		border-color: #00bc77;
 		background-color: #00bc77;
 		color: inherit;
 		font-weight: bold;
-		padding: 10px;
+		min-width: 130px;	
 	}
 }
