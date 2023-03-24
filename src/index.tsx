@@ -13,6 +13,8 @@ import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { pathSignIn, pathUser } from './utils/routesNames';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
