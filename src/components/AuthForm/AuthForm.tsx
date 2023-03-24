@@ -7,11 +7,11 @@ import type { rootState } from '../../redux/store';
 import { setRemember, setToken } from '../../redux/userSlice';
 
 import { useNavigate } from "react-router-dom";
-
-import { pathUser } from '../../utils/routesNames';
+import { fetchAuth } from "../../utils/fetchApi";
 import AuthMessage from "../AuthMessage/AuthMessage";
 
 import "./AuthForm.scss";
+import { pathUser } from "../../utils/routesNames";
 
 /**
  * 
@@ -19,8 +19,8 @@ import "./AuthForm.scss";
  */
 export default function AuthForm(): JSX.Element {
 
-	const [email, setEmail] = useState<string>();
-	const [password, setPassword] = useState<string>();
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const [codeHTTP, setCodeHTTP] = useState<number>(0);
 	const remember = useSelector((state: rootState) => state.user.remember);
 
@@ -31,31 +31,15 @@ export default function AuthForm(): JSX.Element {
 	/** Handle Submit  */
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		try {
-			const apiPath: string = process.env.REACT_APP_LOGIN_API_URL ?? "http://localhost:3001/api/user/login";
-			const response: Response = await fetch(apiPath, {
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				method: "POST",
-				body: JSON.stringify({
-					"email": email,
-					"password": password
-				})
 
-			});
-			const responseToken: any = await response.json();
+		const answer = await fetchAuth(email, password);
+	
+		if (typeof answer === 'number') {
+			setCodeHTTP(answer);
+		} else {
+			dispatch(setToken(answer));	
+			navigate(`/${pathUser}`);
 
-			if (responseToken.status === 200) {
-				dispatch(setToken(responseToken.body.token));
-				navigate(`/${pathUser}`);
-			} else {
-				setCodeHTTP(responseToken.status);
-			}
-		}
-		catch {
-			setCodeHTTP(404);
 		}
 	};
 	/** End Handle Submit */

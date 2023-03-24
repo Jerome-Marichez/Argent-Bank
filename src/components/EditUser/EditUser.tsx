@@ -1,5 +1,6 @@
 import React from "react";
 import "./EditUser.scss";
+import { fetchEditUser } from "../../utils/fetchApi";
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/userSlice';
@@ -26,32 +27,16 @@ export default function EditUser(): JSX.Element {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 
-		try {
-			const apiPath: string = process.env.REACT_APP_PROFILE_PUT_API_URL ?? "http://localhost:3001/api/v1/user/profile";
-			const response: Response = await fetch(apiPath, {
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${token}`,
-				},
-				method: "PUT",
-				body: JSON.stringify({
-					"firstName": inputFirstName,
-					"lastName": inputLastName
-				})
 
-			});
-			const responseToken: { status: number, body: object } = await response.json();
-
-			if (responseToken.status === 200) {
-				dispatch(updateUser({ firstName: inputFirstName, lastName: inputLastName }));
-				setToogle(false);
-			} else {
-				setCodeHTTP(responseToken.status);
-			}
-		} catch {
-			setCodeHTTP(404);
+		const answer = await fetchEditUser(inputFirstName, inputLastName, token);
+	
+		if (typeof answer === 'number') {
+			setCodeHTTP(answer);
+		} else {
+			dispatch(updateUser({ firstName: inputFirstName, lastName: inputLastName }));
+			setToogle(false);
 		}
+
 	};
 
 	return (

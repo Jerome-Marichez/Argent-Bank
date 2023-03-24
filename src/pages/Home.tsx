@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from '../components/Hero/Hero';
 import FeatureItem from '../components/FeatureItem/FeatureItem';
-
+ 
 /**
  * 
  * @returns A Page Home which wrap HTML Elements + Components
