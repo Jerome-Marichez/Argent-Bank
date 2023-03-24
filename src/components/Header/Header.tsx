@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.scss";
 import Logo from "./argentBankLogo.png";
-import { pathHome, pathSignIn, pathUser } from '../../utils/routesNames';
+import { pathHome, pathSignIn } from '../../utils/routesNames';
 import { Link, useLocation } from "react-router-dom";
 
 import type { rootState } from '../../redux/store';
@@ -16,7 +16,7 @@ export default function Header(): JSX.Element {
 
 	const myLocation: string = useLocation().pathname;
 	const fullName: string = useSelector((state: rootState) => state.user.firstName + " " + state.user.lastName);
-	const isUserPage: boolean = (myLocation === `/${pathUser}`);
+	const isUserPage: boolean = (myLocation === `/${pathHome}`);
 
 	const dispatch = useDispatch();
 
