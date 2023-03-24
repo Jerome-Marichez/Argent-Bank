@@ -3,7 +3,7 @@ import { initialState } from './initialStates';
 import { userState } from './initialStates';
 
 export const userSlice = createSlice({
-	name: 'token',
+	name: 'profile',
 	initialState,
 	reducers: {
 		// Redux Toolkit allows us to write "mutating" logic in reducers. It
