@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { rootState } from "../../redux/store";
 
 import { useNavigate } from "react-router-dom";
-import { pathSignIn } from "../../utils/routesNames";
+import { pathHome } from "../../utils/routesNames";
 import { useEffect } from "react";
 
 
@@ -19,7 +19,7 @@ export default function ProtectedRoute({ children }: { children: JSX.Element }):
 
 	useEffect(() => {
 		if (!token) {
-			navigate(`/${pathSignIn}`);
+			navigate(`/${pathHome}`);
 		}
 	}, []);
 
