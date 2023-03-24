@@ -11,7 +11,7 @@ import SignIn from './pages/SignIn';
 import User from './pages/User';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { pathSignIn, pathHome, pathUser } from './utils/routesNames';
+import { pathSignIn, pathUser } from './utils/routesNames';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
