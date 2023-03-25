@@ -8,6 +8,17 @@ const PROFILE_PUT_URL = `${BASE_API}/profile`;
 
 /**
  * 
+ * @param response A Response from fetchUser() | fetchEditUser() | fetchAuth()
+ * @returns Either a status code or the corresponding data.
+ */
+ async function handleResponse(response: Response): Promise<object | Number> {
+	const responseBody: any = await response.json();
+	if (responseBody.status !== 200 && !responseBody.body) { return responseBody.status; }
+	return responseBody.body.token ?? responseBody.body;
+}
+
+/**
+ * 
  * @param token The JWT token used for the request.
  * @returns An object of type 'User' containing all relevant details, or a status code represented as a number if the fetch was unsuccessful.
  */
@@ -22,9 +33,7 @@ export async function fetchUser(token: string): Promise<object | Number> {
 			method: "POST",
 		});
 
-		const responseUser: any = await response.json();
-		if (responseUser.status !== 200 && !responseUser.body) { return responseUser.status; }
-		return responseUser.body;
+		return await handleResponse(response); 
 	}
 
 	catch {
@@ -53,9 +62,8 @@ export async function fetchEditUser(firstName: string, lastName: string, token: 
 			})
 
 		});
-		const responseToken: any = await response.json();
-		if (responseToken.status !== 200 && !responseToken.body) { return responseToken.status; }
-		return responseToken.body;
+		
+		return await handleResponse(response); 
 	}
 
 	catch {
@@ -82,9 +90,7 @@ export async function fetchAuth(email: string, password: string): Promise<any | 
 			})
 
 		});
-		const responseToken: any = await response.json();
-		if (responseToken.status !== 200 && !responseToken.body) { return responseToken.status; }
-		return responseToken.body.token;
+		return await handleResponse(response); 
 	}
 
 	catch {
