@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
 import type { rootState } from '../../redux/store';
@@ -22,10 +22,21 @@ export default function AuthForm(): JSX.Element {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [codeHTTP, setCodeHTTP] = useState<number>(0);
+	const token = useSelector((state: rootState) => state.user.token);
 	const remember = useSelector((state: rootState) => state.user.remember);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+
+	/* AutoLogin if remember is set to true & token is available */
+	const AutoLogin = () => {
+		if (token && remember) { navigate(`/${pathUser}`); };
+	};
+	useEffect(() => {
+		AutoLogin();
+	}, []);
+
 
 
 	/** Handle Submit  */
@@ -33,14 +44,14 @@ export default function AuthForm(): JSX.Element {
 		e.preventDefault();
 
 		const answer = await fetchAuth(email, password);
-	
+
 		if (typeof answer === 'number') {
 			setCodeHTTP(answer);
 		} else {
-			dispatch(setToken(answer));	
+			dispatch(setToken(answer));
 			navigate(`/${pathUser}`);
 		}
-		
+
 	};
 	/** End Handle Submit */
 
@@ -54,7 +65,7 @@ export default function AuthForm(): JSX.Element {
 				<div className="input-wrapper">
 					<label htmlFor="email">Email</label>
 					<input type="email" id="email"
-						autoComplete={remember ? 'username' : 'off'}
+
 						onChange={e => setEmail(e.target.value)}
 						required
 					/>
@@ -62,7 +73,6 @@ export default function AuthForm(): JSX.Element {
 				<div className="input-wrapper">
 					<label htmlFor="password">Password</label>
 					<input type="password" id="password"
-						autoComplete={remember ? 'password' : 'new-password'}
 						onChange={e => setPassword(e.target.value)}
 						required
 					/>

@@ -27,9 +27,7 @@ export default function User(): JSX.Element {
 		else {
 			dispatch(updateUser(answer));
 		}
-
-
-
+		
 	};
 
 	atLoad();
