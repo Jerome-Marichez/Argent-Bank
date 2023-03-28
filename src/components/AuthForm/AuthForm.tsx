@@ -65,7 +65,6 @@ export default function AuthForm(): JSX.Element {
 				<div className="input-wrapper">
 					<label htmlFor="email">Email</label>
 					<input type="email" id="email"
-
 						onChange={e => setEmail(e.target.value)}
 						required
 					/>

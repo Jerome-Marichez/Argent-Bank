@@ -6,13 +6,14 @@ import { Provider } from 'react-redux';
 import "./globalStyles.scss";
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import NoMatch from './components/Routes/NoMatch';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { pathSignIn, pathUser } from './utils/routesNames';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from './components/Routes/ProtectedRoute';
 
 
 const root = ReactDOM.createRoot(
@@ -25,14 +26,15 @@ root.render(
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route path="*" element={<NoMatch />} />
           <Route index element={<Home />} />
-          <Route path={pathSignIn} element={<SignIn />} />
+          <Route path={`${pathSignIn}`} element={<SignIn />} />
           <Route path={pathUser} element={
             <ProtectedRoute>
               <User />
             </ProtectedRoute>
-          } />
-          
+          }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
